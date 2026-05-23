@@ -35,8 +35,15 @@ io.on('connection', socket => {
   socket.on('startGame', (code) => {
   const room = rooms.get(String(code || '').trim());
   if (!room) return;
+
   room.started = true;
+
   io.to(room.code).emit('roomState', publicRoom(room));
+
+  room.players.forEach(player => {
+    io.to(player.id).emit('hand', player.hand || []);
+  });
+
   io.to(room.code).emit('message', 'Partie lancée !');
 });
   socket.on('disconnect', () => {
