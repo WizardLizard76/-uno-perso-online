@@ -33,12 +33,12 @@ io.on('connection', socket => {
     io.to(code).emit('roomState', publicRoom(room));
   });
   socket.on('startGame', (code) => {
-    const room = rooms.get(String(code || '').trim());
-    if (!room) return;
-    room.started = true;
-    io.to(room.code).emit('roomState', publicRoom(room));
-    io.to(room.code).emit('message', 'Partie lancée !');
-  });
+  const room = rooms.get(String(code || '').trim());
+  if (!room) return;
+  room.started = true;
+  io.to(room.code).emit('roomState', publicRoom(room));
+  io.to(room.code).emit('message', 'Partie lancée !');
+});
   socket.on('disconnect', () => {
     for (const [code, room] of rooms) {
       const before = room.players.length;
