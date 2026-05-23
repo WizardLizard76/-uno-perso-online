@@ -1,1 +1,0 @@
-{"scripts":{"start":"node server.js"},"dependencies":{"express":"latest","socket.io":"latest"},"engines":{"node":">=18"}}
