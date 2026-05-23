@@ -1,5 +1,5 @@
 const express=require('express');const http=require('http');const {Server}=require('socket.io');
-const app=express();const server=http.createServer(app);const io=new Server(server,{cors:{origin:'*'}});app.use(express.static('public'));
+const app=express();const server=http.createServer(app);const io=new Server(server,{cors:{origin:'*'}});app.use(express.static(__dirname));
 const rooms=new Map();
 function code(){return Math.floor(1000+Math.random()*9000).toString()}
 function deck(){const colors=['R','Y','G','B'];const d=[];for(const c of colors){for(let n=0;n<=9;n++){d.push({t:'num',c,v:n,id:c+n+'a'}); if(n) d.push({t:'num',c,v:n,id:c+n+'b'});} for(let i=0;i<2;i++){d.push({t:'skip',c,v:'⛔',id:c+'skip'+i},{t:'rev',c,v:'↺',id:c+'rev'+i},{t:'draw2',c,v:'+2',id:c+'d2'+i});}} for(let i=0;i<4;i++) d.push({t:'wild',c:'K',v:'🌈',id:'wild'+i},{t:'draw4',c:'K',v:'+4',id:'d4'+i});return d.sort(()=>Math.random()-.5)}
